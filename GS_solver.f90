@@ -1,4 +1,4 @@
-! This program solves linear equation using Gauss-Seidel iteration method.
+! GS_solver.f90 -- This program solves linear equation using Gauss-Seidel iteration method.
 ! Copyright (C) 2025 Avishek Gorai <avishekgorai@myyahoo.com>
 
 ! This program is free software: you can redistribute it and/or modify
@@ -14,95 +14,93 @@
 ! You should have received a copy of the GNU General Public License
 ! along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-PROGRAM gauss_seidel_linear_equation_solver
+PROGRAM gauss_seidel_solver
   IMPLICIT NONE
 
-  REAL, ALLOCATABLE, DIMENSION(:) :: x, b, x_new
-  REAL, ALLOCATABLE, DIMENSION(:, :) :: a
-  REAL, PARAMETER :: epsilon = 1.0E-6
+  REAL, PARAMETER :: tolerance = epsilon(1.0) * 1.0E2
 
-  INTEGER number_of_variables, array_allocation_status, i, j
+  REAL, ALLOCATABLE, DIMENSION(:)    :: x, b, x_new
+  REAL, ALLOCATABLE, DIMENSION(:, :) :: coefficient_matrix
+  INTEGER number_of_variables, array_allocation_status, i, j, array_deallocation_status
+  REAL sum_of_first_half, sum_of_second_half, n
+  LOGICAL accurate, diagonal_dominance
 
-  REAL sum_of_first_half, sum_of_second_half
-
-  LOGICAL accurate, diagonal_domincance_condtition
 
   PRINT *, "Enter number of variables: "
   READ *, number_of_variables
+  PRINT *
 
-  ALLOCATE (x(number_of_variables), a(number_of_variables, number_of_variables), b(number_of_variables)&
-       , x_new(number_of_variables), stat = array_allocation_status)
+  ALLOCATE (x(number_of_variables), coefficient_matrix(number_of_variables, number_of_variables),&
+       b(number_of_variables), x_new(number_of_variables), stat = array_allocation_status)
 
-  IF (array_allocation_status == 0) THEN
-     PRINT *, "Enter the values of co-efficients:-"
-     READ *, a
+  IF (array_allocation_status /= 0) THEN
+     PRINT *, "Could not allocate all the arrays! Code: ", array_allocation_status
+  ELSE
+     PRINT *, "Enter the coefficients in column major order:-"
+     READ *, coefficient_matrix
+     PRINT *
 
-     CALL diagonal_domincance(diagonal_domincance_condtition)
-     
-     IF (diagonal_domincance_condtition .EQV. .TRUE.) THEN
+     diagonal_dominance = .TRUE.
+     DO i = 1, number_of_variables
+        sum_of_first_half = 0.0
+        DO j = 1, i - 1
+           sum_of_first_half = sum_of_first_half + coefficient_matrix(i, j)
+        END DO
+
+        sum_of_second_half = 0.0
+        DO j = i+1, number_of_variables
+           sum_of_second_half = sum_of_second_half + coefficient_matrix(i, j)
+        END DO
+
+        diagonal_dominance = diagonal_dominance .AND. (abs(coefficient_matrix(i, i)) > (sum_of_first_half + sum_of_second_half))
+
+        IF (.NOT. diagonal_dominance)  EXIT
+     END DO
+
+     IF (.NOT. diagonal_dominance) THEN
+        PRINT *, "Diagonal dominance not satisfied by equation number ", i
+     ELSE
         PRINT *, "Enter the values of constants:-"
         READ *, b
+        PRINT *
 
-        PRINT *, "Enter guessed values:-"
-        READ *, x
+        DO i = 1, number_of_variables
+           CALL random_number(n)
+           x(i) = n
+        END DO
+
+        PRINT *, "Choosen random values of x:-"
+        PRINT *, x
+        PRINT *
 
         DO
            DO i = 1, number_of_variables
-              sum_of_first_half = 0
+              sum_of_first_half = 0.0
               DO j = 1, i - 1
-                 sum_of_first_half = sum_of_first_half + a(i, j)
+                 sum_of_first_half = sum_of_first_half + x_new(j) * coefficient_matrix(i, j)
               END DO
 
-              sum_of_second_half = 0
+              sum_of_second_half = 0.0
               DO j = i + 1, number_of_variables
-                 sum_of_second_half = sum_of_second_half + a(i, j)
+                 sum_of_second_half = sum_of_second_half + x(j) * coefficient_matrix(i, j)
               END DO
 
-              x_new(i) = (b(i) - sum_of_first_half - sum_of_second_half) / a(i, i)
+              x_new(i) = (b(i) - sum_of_first_half - sum_of_second_half) / coefficient_matrix(i, i)
            END DO
 
            accurate = .TRUE.
            DO i = 1, number_of_variables
-              accurate = accurate .AND. abs(x_new(i) - x(i)) < epsilon
+              accurate = accurate .AND. (abs(x_new(i) - x(i)) < tolerance)
            END DO
-           
-           IF (accurate) EXIT
+
+           PRINT *, x_new
+
+           IF (accurate)  EXIT
         END DO
 
         PRINT *, x_new
-     ELSE
-        PRINT *, "Diagonal dominance unsatisfied!"        
      END IF
-     DEALLOCATE (x(number_of_variables), a(number_of_variables, number_of_variables), b(number_of_variables),&
-          x_new(number_of_variables), stat = array_allocation_status)
-     IF (array_allocation_status /= 0) PRINT *, "Could not deallocate arrays!"
-  ELSE
-     PRINT *, "Could not allocate all the arrays!"
+     DEALLOCATE (x, coefficient_matrix, b, x_new, stat = array_deallocation_status)
+     IF (array_deallocation_status /= 0) PRINT *, "Could not deallocate arrays! Code: ", array_deallocation_status
   END IF
-
-CONTAINS
-  SUBROUTINE diagonal_domincance(condition)
-    LOGICAL, INTENT(OUT) :: condition
-    
-    REAL sum_of_first_half, sum_of_second_half, sum_of_other_coefficients
-    INTEGER i, j
-
-    condition = .TRUE.
-    DO i = 1, number_of_variables
-       sum_of_first_half = 0
-       DO j = 1, i-1
-          sum_of_first_half = sum_of_first_half + abs(a(i, j))
-       END DO
-
-       sum_of_second_half = 0
-       DO j = i+1, number_of_variables
-          sum_of_second_half = sum_of_second_half + abs(a(i, j))
-       END DO
-
-       sum_of_other_coefficients = sum_of_first_half + sum_of_second_half
-
-       condition = condition .AND. abs(a(i, i)) > sum_of_other_coefficients
-    END DO
-  END SUBROUTINE diagonal_domincance
-
-END PROGRAM gauss_seidel_linear_equation_solver
+END PROGRAM gauss_seidel_solver
