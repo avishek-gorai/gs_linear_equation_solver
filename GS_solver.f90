@@ -21,7 +21,7 @@ PROGRAM gauss_seidel_solver
 
   REAL, ALLOCATABLE, DIMENSION(:)    :: x, b, x_new
   REAL, ALLOCATABLE, DIMENSION(:, :) :: coefficient_matrix
-  INTEGER number_of_variables, array_allocation_status, i, j, array_deallocation_status
+  INTEGER number_of_variables, array_allocation_status, i, j, array_deallocation_status, number_of_iterations
   REAL sum_of_first_half, sum_of_second_half, n
   LOGICAL accurate, diagonal_dominance
 
@@ -73,6 +73,7 @@ PROGRAM gauss_seidel_solver
         PRINT *, x
         PRINT *
 
+        number_of_iterations = 0
         DO
            DO i = 1, number_of_variables
               sum_of_first_half = 0.0
@@ -93,11 +94,17 @@ PROGRAM gauss_seidel_solver
               accurate = accurate .AND. (abs(x_new(i) - x(i)) < tolerance)
            END DO
 
-           PRINT *, x_new
-
-           IF (accurate)  EXIT
+           IF (accurate) THEN
+              EXIT
+           ELSE
+              x = x_new
+              number_of_iterations = number_of_iterations + 1
+           END IF
         END DO
 
+        PRINT *, "Number of iterations required = ", number_of_iterations
+        PRINT *
+        PRINT *, "Solution:-"
         PRINT *, x_new
      END IF
      DEALLOCATE (x, coefficient_matrix, b, x_new, stat = array_deallocation_status)
