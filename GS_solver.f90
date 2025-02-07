@@ -28,23 +28,23 @@ PROGRAM gauss_seidel_solver
 
   PRINT 10
 10 FORMAT (1X, "This program gives approximate solutions to linear equations using Gauss-Seiden method." / &
-        1X, "Copyright (C) 2025 by Avishek Gorai <avishekgorai@myyahoo.com>")
+       1X, "Copyright (C) 2025 by Avishek Gorai <avishekgorai@myyahoo.com>")
 
   PRINT 20
 20 FORMAT ("0", "This program is free software: you can redistribute it and/or modify ", &
-        "it under the terms of the GNU General Public License as published by ", &
-        "the Free Software Foundation, either version 3 of the License, or ", &
-        "(at your option) any later version.")
+       "it under the terms of the GNU General Public License as published by ", &
+       "the Free Software Foundation, either version 3 of the License, or ", &
+       "(at your option) any later version.")
 
   PRINT 30
 30 FORMAT ("0", "This program is distributed in the hope that it will be useful, ", &
-        "but WITHOUT ANY WARRANTY; without even the implied warranty of ", &
-        "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the ", &
-        "GNU General Public License for more details.")
+       "but WITHOUT ANY WARRANTY; without even the implied warranty of ", &
+       "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the ", &
+       "GNU General Public License for more details.")
 
   PRINT 40
 40 FORMAT ("0", "You should have received a copy of the GNU General Public License ", &
-        "along with this program.  If not, see <https://www.gnu.org/licenses/>.")
+       "along with this program.  If not, see <https://www.gnu.org/licenses/>.")
 
 
   DO
