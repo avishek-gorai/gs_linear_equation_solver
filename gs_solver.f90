@@ -1,16 +1,16 @@
 ! GS_solver.f90 -- This program solves linear equation using Gauss-Seidel iteration method.
 ! Copyright (C) 2025 Avishek Gorai <avishekgorai@myyahoo.com>
-
+!
 ! This program is free software: you can redistribute it and/or modify
 ! it under the terms of the GNU General Public License as published by
 ! the Free Software Foundation, either version 3 of the License, or
 ! (at your option) any later version.
-
+!
 ! This program is distributed in the hope that it will be useful,
 ! but WITHOUT ANY WARRANTY; without even the implied warranty of
 ! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ! GNU General Public License for more details.
-
+!
 ! You should have received a copy of the GNU General Public License
 ! along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
@@ -18,16 +18,25 @@ PROGRAM gauss_seidel_solver
   IMPLICIT NONE
 
   REAL, PARAMETER :: tolerance = epsilon(1.0) * 1.0E2
+  INTEGER, PARAMETER :: end_of_file = -1, &
+       input_ok = 0, &
+       deallocation_success = 0, &
+       allocation_success = 0
+
 
   REAL, ALLOCATABLE, DIMENSION(:)    :: x, b, x_new
   REAL, ALLOCATABLE, DIMENSION(:, :) :: coefficient_matrix
-  INTEGER number_of_variables, array_allocation_status, equation_number, j, array_deallocation_status, number_of_iterations
+  INTEGER number_of_variables, array_allocation_status, equation_number, j, array_deallocation_status, number_of_iterations, &
+       read_status, solution_number
   REAL sum_of_first_half, sum_of_second_half, n
   LOGICAL accurate, diagonal_dominance
-  INTEGER read_status
+
+130 FORMAT ("0", "Invalid input!")
+140 FORMAT ("0", "Bye!")
+
 
   PRINT 10
-10 FORMAT (1X, "This program gives approximate solutions to linear equations using Gauss-Seiden method." / &
+10 FORMAT (1X, "This program gives approximate solutions to linear equations using Gauss-Seidel method." / &
        1X, "Copyright (C) 2025 by Avishek Gorai <avishekgorai@myyahoo.com>")
 
   PRINT 20
@@ -47,33 +56,32 @@ PROGRAM gauss_seidel_solver
        "along with this program.  If not, see <https://www.gnu.org/licenses/>.")
 
 
+  solution_number = 1
   DO
-     PRINT 50
-50   FORMAT ("0", "Enter number of variables:-")
      READ (*, *, iostat = read_status) number_of_variables
 
-     IF (read_status == -1) THEN
-        PRINT 140
-140     FORMAT ("0", "Bye!")
+     IF (read_status == end_of_file) THEN
         EXIT
-     ELSE IF (read_status /= 0) THEN
+     ELSE IF (read_status /= input_ok) THEN
         PRINT 130
-130     FORMAT ("0", "Invalid input!")
      ELSE
         ALLOCATE (x(number_of_variables), coefficient_matrix(number_of_variables, number_of_variables),&
              b(number_of_variables), x_new(number_of_variables), stat = array_allocation_status)
 
-        IF (array_allocation_status /= 0) THEN
-60         FORMAT ("0", "Could not allocate all the arrays! Code:-")
+        IF (array_allocation_status /= allocation_success) THEN
+           PRINT *, 60
+60         FORMAT ("0", "Could not allocate all the arrays! Error code:-")
            PRINT *, array_allocation_status
         ELSE
-           PRINT 70
-70         FORMAT ("0", "Enter the coefficients in column major order:-")
            READ (*, *, iostat = read_status) coefficient_matrix
 
-           IF (read_status == -1) THEN
+           IF (read_status == end_of_file) THEN
+              PRINT *, "Input exhausted while reading coefficient matrix!"
               EXIT
+           ELSE IF (read_status /= input_ok) THEN
+              PRINT 130
            ELSE
+              ! Testing diagonal dominance
               diagonal_dominance = .TRUE.
               DO equation_number = 1, number_of_variables
                  sum_of_first_half = 0.0
@@ -89,20 +97,22 @@ PROGRAM gauss_seidel_solver
                  diagonal_dominance = diagonal_dominance .AND. (abs(coefficient_matrix(equation_number, equation_number)) > &
                       (sum_of_first_half + sum_of_second_half))
 
-                 IF (.NOT. diagonal_dominance)  EXIT
+                 IF (.NOT. diagonal_dominance) EXIT
               END DO
 
               IF (.NOT. diagonal_dominance) THEN
                  PRINT 80,
 80               FORMAT ("0", "Diagonal dominance not satisfied by equation number:-")
                  PRINT *, equation_number
+                 EXIT
               ELSE
-                 PRINT 90
-90               FORMAT ("0", "Enter the values of constants:-")
                  READ (*, *, iostat = read_status) b
 
-                 IF (read_status == -1) THEN
+                 IF (read_status == end_of_file) THEN
+                    PRINT *, "Input exhausted while reading constants!"
                     EXIT
+                 ELSE IF (read_status /= input_ok) THEN
+                    PRINT 130
                  ELSE
                     DO equation_number = 1, number_of_variables
                        CALL random_number(n)
@@ -110,7 +120,7 @@ PROGRAM gauss_seidel_solver
                     END DO
 
                     PRINT 100
-100                 FORMAT ("0", "Initial values of x:-")
+100                 FORMAT ("0", "Random initial values of x:-")
                     PRINT *, x
 
                     number_of_iterations = 0
@@ -143,8 +153,9 @@ PROGRAM gauss_seidel_solver
                        END IF
                     END DO
 
+                    PRINT *, solution_number
                     PRINT 110
-110                 FORMAT ("0", "Number of iterations required:-")
+110                 FORMAT ("0", "Number of iterations done:-")
                     PRINT *, number_of_iterations
 
                     PRINT 120
@@ -152,12 +163,16 @@ PROGRAM gauss_seidel_solver
                     PRINT *, x_new
                  END IF
                  DEALLOCATE (x, coefficient_matrix, b, x_new, stat = array_deallocation_status)
-                 IF (array_deallocation_status /= 0) PRINT 150, array_deallocation_status
-150              FORMAT ("0", "Could not deallocate arrays! Code: ", I5)
+                 IF (array_deallocation_status /= deallocation_success) THEN
+                    PRINT 70
+70                  FORMAT("0", "Could not deallocate arrays! Error code:-")
+                    PRINT *, array_deallocation_status
+                 END IF
                  EXIT
               END IF
            END IF
         END IF
      END IF
+     solution_number = solution_number + 1
   END DO
 END PROGRAM gauss_seidel_solver
