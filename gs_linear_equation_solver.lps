@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="gs_linear_equation_solver.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="43"/>
+        <CursorPos X="23" Y="4"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/usr/share/fpcsrc/3.2.2/packages/fcl-base/src/custapp.pp"/>
+        <UnitName Value="CustApp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="27"/>
+        <CursorPos X="34" Y="55"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="gs_solver_functions.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="6"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="gs_linear_equation_solver_functions.pas"/>
+        <UnitName Value="gs_solver_functions"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="24"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="5">
+      <Position>
+        <Filename Value="gs_linear_equation_solver.lpr"/>
+        <Caret Line="14" Column="37"/>
+      </Position>
+      <Position>
+        <Filename Value="gs_linear_equation_solver.lpr"/>
+        <Caret Line="26" Column="9" TopLine="7"/>
+      </Position>
+      <Position>
+        <Filename Value="gs_linear_equation_solver.lpr"/>
+        <Caret Line="39" Column="36" TopLine="19"/>
+      </Position>
+      <Position>
+        <Filename Value="gs_linear_equation_solver.lpr"/>
+        <Caret Line="62" Column="11" TopLine="35"/>
+      </Position>
+      <Position>
+        <Filename Value="gs_linear_equation_solver.lpr"/>
+        <Caret Line="27" Column="26" TopLine="11"/>
+      </Position>
+      <Position>
+        <Filename Value="gs_linear_equation_solver.lpr"/>
+        <Caret Line="4" Column="25"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

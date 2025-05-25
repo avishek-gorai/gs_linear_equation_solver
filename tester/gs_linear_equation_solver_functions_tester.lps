@@ -5,25 +5,22 @@
     <BuildModes Active="Default"/>
     <Units>
       <Unit>
-        <Filename Value="gs_solver.lpr"/>
+        <Filename Value="gs_linear_equation_solver_functions_tester.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="gauss_seidel_solver"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="64" Y="24"/>
+        <EditorIndex Value="1"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="gs_solver_functions.pas"/>
-        <EditorIndex Value="-1"/>
-        <UsageCount Value="10"/>
+        <Filename Value="testcase1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TestCase1"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory>
-      <Position>
-        <Filename Value="gs_solver.lpr"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>
