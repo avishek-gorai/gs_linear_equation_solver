@@ -24,12 +24,12 @@ IMPLEMENTATION
     CONST
         tolerance = 1.0E-6;
 
-    FUNCTION diagonal_dominance(coefficient_matrix : matrix) : diagonal_dominance_result;
+    FUNCTION diagonal_dominance(coefficient_matrix: matrix) : diagonal_dominance_result;
 
     VAR
-        row, column                                : integer;
-        sum_of_first_half, sum_of_second_half, sum : real;
-        answer                                     : diagonal_dominance_result;
+        row, column: integer;
+        sum_of_first_half, sum_of_second_half, sum: real;
+        answer: diagonal_dominance_result;
 
     BEGIN
         answer.test := true;

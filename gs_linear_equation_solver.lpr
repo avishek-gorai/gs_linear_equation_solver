@@ -13,7 +13,7 @@ TYPE
         OVERRIDE;
 
     PUBLIC
-        CONSTRUCTOR create(the_owner : TComponent);
+        CONSTRUCTOR create(owner : TComponent);
         OVERRIDE;
 
         DESTRUCTOR destroy;
