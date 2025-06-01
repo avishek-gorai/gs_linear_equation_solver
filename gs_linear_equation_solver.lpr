@@ -1,77 +1,50 @@
 PROGRAM gs_linear_equation_solver;
 
 USES
-    gs_linear_equation_solver_functions,
-    Classes,
-    SysUtils,
-    CustApp;
+    gs_linear_equation_solver_functions;
 
-TYPE
-    GSLinearEquationSolver = CLASS(TCustomapplication)
-    PROTECTED
-        PROCEDURE doRun;
-        OVERRIDE;
-
-    PUBLIC
-        CONSTRUCTOR create(owner : TComponent);
-        OVERRIDE;
-
-        DESTRUCTOR destroy;
-        OVERRIDE;
-
-        FUNCTION writeHelp : GSLinearEquationSolver;
-        VIRTUAL;
-    END;
-
-    PROCEDURE GSLinearEquationSolver.doRun;
-
-    VAR
-        error_message : string;
-
-    BEGIN
-        error_message := self.checkOptions('h', 'help');
-        IF error_message <> '' THEN
-        BEGIN
-            self.showException(Exception.create(error_message));
-            self.terminate
-        END;
-
-        IF self.hasOption('h', 'help') THEN
-        BEGIN
-            self.writeHelp;
-            self.terminate
-        END;
-
-        self.terminate
-    END;
-
-    CONSTRUCTOR GSLinearEquationSolver.create(the_owner : TComponent);
-
-    BEGIN
-      INHERITED create(the_owner);
-      self.stopOnException := true
-    END;
-
-    DESTRUCTOR GSLinearEquationSolver.destroy;
-
-    BEGIN
-      INHERITED destroy;
-    END;
-
-    FUNCTION GSLinearEquationSolver.writeHelp : GSLinearEquationSolver;
-
-    BEGIN
-        writeln('Usage: ', self.exeName, ' -h');
-        writeHelp := self
-    END;
+CONST
+    blank = ' ';
 
 VAR
-    application : GSLinearEquationSolver;
+    number_of_variables : maximum_variables;
+    coeffifient_matrix  : matrix;
+    answer, constants   : standard_array;
+    dd_result           : diagonal_dominance_result;
+
+PROCEDURE print_answers(arr : standard_array; n : maximum_variables);
+
+VAR
+    index : maximum_variables;
 
 BEGIN
-    application := GSLinearEquationSolver.create(NIL);
-    application.title := 'Gauss-Seidel Linear Equation Solver';
-    application.run;
-    application.free
+    FOR index := 1 TO n-1 DO
+    BEGIN
+        write(arr[index], blank)
+    END;
+    write(arr[n])
+END;
+
+BEGIN
+    write('Enter number of variables: ');
+    read(number_of_variables);
+
+    writeln('Enter coefficients:-');
+    read_coefficients(coeffifient_matrix, number_of_variables);
+
+    writeln('Enter constants:-');
+    read_constants(constants, number_of_variables);
+
+    dd_result := diagonal_dominance(coeffifient_matrix, number_of_variables);
+
+    IF dd_result.test = true THEN
+      BEGIN
+        answer := calculate(coeffifient_matrix, constants, number_of_variables);
+        print_answers(answer, number_of_variables)
+      END
+    ELSE
+      BEGIN
+          writeln('Diagonal dominance not satisfied by equation ', dd_result.equation_number)
+      END
 END.
 

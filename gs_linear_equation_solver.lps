@@ -7,7 +7,7 @@
       <Unit>
         <Filename Value="gs_linear_equation_solver.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="23" Y="4"/>
+        <CursorPos X="5" Y="8"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit>
@@ -27,22 +27,21 @@
       </Unit>
       <Unit>
         <Filename Value="gs_linear_equation_solver_functions.pas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="18"/>
-        <CursorPos X="16" Y="32"/>
+        <TopLine Value="16"/>
+        <CursorPos X="5" Y="33"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../tmp/demo/generics_demo.lpr"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="21" Y="26"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="5">
+    <JumpHistory HistoryIndex="6">
       <Position>
         <Filename Value="gs_linear_equation_solver.lpr"/>
         <Caret Line="14" Column="37"/>
@@ -66,6 +65,10 @@
       <Position>
         <Filename Value="gs_linear_equation_solver.lpr"/>
         <Caret Line="4" Column="25"/>
+      </Position>
+      <Position>
+        <Filename Value="gs_linear_equation_solver.lpr"/>
+        <Caret Line="45" Column="10" TopLine="13"/>
       </Position>
     </JumpHistory>
     <RunParams>
