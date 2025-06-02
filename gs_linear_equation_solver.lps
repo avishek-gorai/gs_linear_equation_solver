@@ -7,8 +7,9 @@
       <Unit>
         <Filename Value="gs_linear_equation_solver.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="5" Y="8"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="8"/>
+        <CursorPos X="12" Y="25"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -27,11 +28,9 @@
       </Unit>
       <Unit>
         <Filename Value="gs_linear_equation_solver_functions.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="16"/>
-        <CursorPos X="5" Y="33"/>
-        <UsageCount Value="10"/>
+        <CursorPos X="13" Y="155"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -40,8 +39,18 @@
         <CursorPos X="21" Y="26"/>
         <UsageCount Value="10"/>
       </Unit>
+      <Unit>
+        <Filename Value="LICENSE.txt"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="627"/>
+        <CursorPos Y="634"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Text"/>
+      </Unit>
     </Units>
-    <JumpHistory HistoryIndex="6">
+    <JumpHistory HistoryIndex="11">
       <Position>
         <Filename Value="gs_linear_equation_solver.lpr"/>
         <Caret Line="14" Column="37"/>
@@ -69,6 +78,26 @@
       <Position>
         <Filename Value="gs_linear_equation_solver.lpr"/>
         <Caret Line="45" Column="10" TopLine="13"/>
+      </Position>
+      <Position>
+        <Filename Value="gs_linear_equation_solver_functions.pas"/>
+        <Caret Line="95" Column="9" TopLine="71"/>
+      </Position>
+      <Position>
+        <Filename Value="gs_linear_equation_solver_functions.pas"/>
+        <Caret Line="107" Column="48" TopLine="95"/>
+      </Position>
+      <Position>
+        <Filename Value="gs_linear_equation_solver.lpr"/>
+        <Caret Line="33" Column="41" TopLine="20"/>
+      </Position>
+      <Position>
+        <Filename Value="gs_linear_equation_solver.lpr"/>
+        <Caret Line="36" Column="29" TopLine="23"/>
+      </Position>
+      <Position>
+        <Filename Value="gs_linear_equation_solver.lpr"/>
+        <Caret Line="22" Column="10" TopLine="24"/>
       </Position>
     </JumpHistory>
     <RunParams>

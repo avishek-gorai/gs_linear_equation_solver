@@ -1,12 +1,29 @@
 UNIT gs_linear_equation_solver_functions;
 
+(* gs_linear_equation_solver_functions.pas -- These functions are used by the main program.
+   Copyright (C) 2025 Avishek Gorai <avishekgorai@myyahoo.com>
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*)
+
 INTERFACE
     CONST
         variable_limit = 30;
         tolerance      = 1.0E-6;
 
     TYPE
-        maximum_variables         = 1 .. variable_limit;
+        maximum_variables         = 0 .. variable_limit;
         matrix                    = ARRAY [1 .. variable_limit, 1 .. variable_limit] OF real;
         standard_array            = ARRAY [1 .. variable_limit] OF real;
         diagonal_dominance_result = RECORD
@@ -93,10 +110,6 @@ IMPLEMENTATION
             row := row + 1
         END;
 
-        IF answer.test = false THEN
-          BEGIN
-            answer.equation_number := row;
-          END;
         diagonal_dominance := answer
     END;
 
@@ -109,18 +122,18 @@ IMPLEMENTATION
         accurate                        : boolean;
         x, x_new                        : standard_array;
         first_half_sum, second_half_sum : real;
-        dd_result                       : diagonal_dominance_result;
 
     BEGIN
         (* Assigning random values. *)
-        FOR index := 1 TO number_of_variables DO
+        FOR index := 2 TO number_of_variables DO
         BEGIN
-            x[index] := random
+            x[index] := random()
         END;
 
         accurate := false;
         row := 1;
-        REPEAT
+        WHILE NOT accurate DO
+        BEGIN
             (* Calculating new values. *)
             FOR row := 1 TO number_of_variables DO
             BEGIN
@@ -156,9 +169,8 @@ IMPLEMENTATION
                     x[index] := x_new[index]
                 END
             END
-        UNTIL accurate;
+        END;
 
         calculate := x_new
     END;
 END.
-

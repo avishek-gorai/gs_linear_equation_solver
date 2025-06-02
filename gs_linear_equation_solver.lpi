@@ -5,6 +5,7 @@
     <General>
       <Flags>
         <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
         <MainUnitHasScaledStatement Value="False"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
@@ -41,6 +42,7 @@
     <Parsing>
       <Style Value="1"/>
       <SyntaxOptions>
+        <SyntaxMode Value="fpc"/>
         <CStyleOperator Value="False"/>
         <IncludeAssertionCode Value="True"/>
         <CPPInline Value="False"/>
@@ -61,7 +63,6 @@
     <Linking>
       <Debugging>
         <TrashVariables Value="True"/>
-        <GenGProfCode Value="True"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
