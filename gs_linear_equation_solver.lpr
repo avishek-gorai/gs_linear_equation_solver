@@ -19,6 +19,7 @@ PROGRAM gs_linear_equation_solver;
 
 
 USES
+    Sysutils,
     gs_linear_equation_solver_functions;
 
 CONST

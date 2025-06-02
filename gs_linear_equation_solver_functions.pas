@@ -45,9 +45,6 @@ INTERFACE
                                 number_of_variables : maximum_variables) : diagonal_dominance_result;
 
 IMPLEMENTATION
-    USES
-        Sysutils;
-
     PROCEDURE read_constants(VAR constants           : standard_array;
                                  number_of_variables : maximum_variables);
 
